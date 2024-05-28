@@ -1,0 +1,80 @@
+
+<div class="grid lato-light">
+  <div class="col-12 md:col-12 lg:col-6">
+      <div class="text-center p-6 border-round-sm custom-card-background font-bold">
+        <p-card class="custom-card-background w-full" header="Order Summary">
+        <span style="color: #838383;"> Product: ABCD <br>
+         Date: 08/09/2019 12:03:44 <br>
+         Amount:1123.03 USD <br>
+       </span>
+       </p-card>
+      </div>
+  </div>
+  <div class="col-12 md:col-12 lg:col-6">
+      <div class="text-left p-6 border-round-sm font-bold">
+        <div *ngIf="!isSubmit" class="card lato-light">
+          <h2>Payment Form</h2>
+          <form (ngSubmit)="onSubmit()">
+            <div class="formgrid grid">
+              <div class="field col-12 md:col-12">
+
+                <label for="cardType">Card Type</label>
+                <select id="cardType" [(ngModel)]="cardShemes" [ngModelOptions]="{standalone: true}"
+                  class="w-full text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round outline-none focus:border-primary"
+                  style="appearance: auto">
+                  <option *ngFor="let c of cities" [ngValue]="c">{{c.name}}</option>
+                </select>
+
+              </div>
+              <div *ngIf="cardShemes.id !== 5" class="field col-12 md:col-12">
+                <label for="creditCardNumber">Credit Card Number</label>
+                <p-inputMask id="creditCardNumber" mask="9999-9999-9999-9999" [(ngModel)]="cardNumber"
+                  placeholder="xxxx-xxxx-xxxx-xxxx" class=" appearance-none outline-none focus:border-primary w-full"
+                  [ngModelOptions]="{standalone: true}"></p-inputMask>
+              </div>
+
+              <div *ngIf="cardShemes.id === 5" class="field col-12 md:col-12">
+                <label for="creditCardNumber">Credit Card Number</label>
+                <p-inputMask id="creditCardNumber" mask="9999-9999-9999-999" [(ngModel)]="cardNumber"
+                  placeholder="xxxx-xxxx-xxxx-xxx" class=" appearance-none outline-none focus:border-primary w-full"
+                  [ngModelOptions]="{standalone: true}"></p-inputMask>
+              </div>
+
+              <div class="field col-12 md:col-12">
+                <label for="expiryDate">Expiry Date (MM/YY)</label>
+                <p-inputMask id="expiryDate" mask="99/99" [(ngModel)]="expiryDate" placeholder="MM/YY" slotChar="MM/YY"
+                  class=" appearance-none outline-none focus:border-primary w-full"
+                  [ngModelOptions]="{standalone: true}"></p-inputMask>
+                <!-- <textarea id="address" type="text" rows="4" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full"></textarea> -->
+              </div>
+              <div class="field col-12 md:col-12">
+                <label for="name">Name</label>
+                <input id="name" type="text" [(ngModel)]="name" [ngModelOptions]="{standalone: true}" maxlength="30"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+              <div class="field col-12 md:col-12">
+                <label for="email">Email</label>
+                <input id="email" type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+                  class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+              </div>
+
+            </div>
+            <p-button label="Submit" type="submit" [disabled]="!isValidForm()"></p-button>
+
+          </form>
+
+        </div>
+
+        <div *ngIf="isSuccess" class="text-center">
+          <i class="pi pi-check-circle" style="font-size: 5rem; color:#6D84BC;text-align: center;"></i>
+          <h1 style="color: #6D84BC;">Your payment has been successfully processed.</h1>
+          <h2 style="color: #6D84BC;">Invoice: {{invoice}}</h2>
+        </div>
+
+        <div *ngIf="isFail" class="text-center">
+          <!-- <i class="pi pi-times-circle" style="font-size: 5rem; color:#F44336;text-align: center;"></i> -->
+          <h1 style="color: #bc6d6d;">{{message}}</h1>
+        </div>
+      </div>
+  </div>
+</div>
