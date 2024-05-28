@@ -54,12 +54,15 @@
               </div>
               <div class="field col-12 md:col-12">
                 <label for="email">Email</label>
-                <input id="email" type="text" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"
+                <input id="email" type="email" email [(ngModel)]="email" [ngModelOptions]="{standalone: true}" pattern="[a-z0-9._%+\-]+@[a-z0-9.\-]+\.[a-z]{2,}$" maxlength="50"
                   class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+                  <div *ngIf="!isValidEmail(email) && email">
+                    <small class="p-error">Email format is xxx@xxx.xxx</small>
+                  </div>
               </div>
 
             </div>
-            <p-button label="Submit" type="submit" [disabled]="!isValidForm()"></p-button>
+            <p-button label="Confirm Payment" type="submit" [disabled]="!isValidForm()"></p-button>
 
           </form>
 
